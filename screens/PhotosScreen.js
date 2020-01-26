@@ -23,9 +23,12 @@ function AppImage({ image }) {
          </TouchableOpacity>
 }
 
-export default function PhotosScreen() {
+export default function PhotosScreen(props) {
+  const navigation = props.navigation;
   const [loaded, setLoaded] = useState(false);
   const [photos, setPhotos] = useState([]);
+  
+  // const loadAgain = navigation.state.params?.loadAgain;
   
   // useEffect is kinda similar to componentDidMount 
   // and componentDidUpdate

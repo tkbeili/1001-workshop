@@ -3,9 +3,11 @@ import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Camera } from 'expo-camera';
 
-export default function PostScreen() {
+export default function PostScreen(props) {
+  const navigation = props.navigation;
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  let camera;
 
   useEffect(() => {
     (async () => {
@@ -22,7 +24,7 @@ export default function PostScreen() {
   }
   return (
     <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={type}>
+      <Camera style={{ flex: 1 }} type={type} ref={ ref => (camera=ref)}>
         <View
           style={{
             flex: 1,
@@ -50,7 +52,13 @@ export default function PostScreen() {
               flex: 0.4,
               alignSelf: 'flex-end',
               alignItems: 'flex-end',
-            }} onPress={ () => alert('taking photo')} >
+            }} onPress={ () => {
+              camera.takePictureAsync().then( ({uri}) => {
+                console.log(uri)
+                // navigate to the Submit screen
+                navigation.navigate('Submit', { uri })
+              })
+            } } >
             <Text style={styles.cameraText}>Take Photo</Text>
           </TouchableOpacity>
         </View>

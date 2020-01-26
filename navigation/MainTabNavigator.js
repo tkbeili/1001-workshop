@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import PhotosScreen from '../screens/PhotosScreen';
 import PostScreen from '../screens/PostScreen';
+import SubmitScreen from '../screens/SubmitScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -35,7 +36,8 @@ PhotosStack.path = '';
 
 const PostStack = createStackNavigator(
   {
-    Links: PostScreen,
+    Post: PostScreen,
+    Submit: SubmitScreen
   },
   config
 );
